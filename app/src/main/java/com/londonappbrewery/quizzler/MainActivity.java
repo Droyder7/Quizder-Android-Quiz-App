@@ -21,11 +21,10 @@ public class MainActivity extends Activity {
     Builder alert;
     boolean lastAnswer;
     private TrueFalse[] mQuestionBank = {new TrueFalse(R.string.question_1, true), new TrueFalse(R.string.question_2, true), new TrueFalse(R.string.question_3, true), new TrueFalse(R.string.question_4, true), new TrueFalse(R.string.question_5, true), new TrueFalse(R.string.question_6, false), new TrueFalse(R.string.question_7, true), new TrueFalse(R.string.question_8, false), new TrueFalse(R.string.question_9, true), new TrueFalse(R.string.question_10, true), new TrueFalse(R.string.question_11, false), new TrueFalse(R.string.question_12, false), new TrueFalse(R.string.question_13, true)};
-    int score;
+    int score=0;
 
     public MainActivity() {
         double length = this.mQuestionBank.length;
-        Double.isNaN(length);
         this.PROGRESS_BAR_INCREMENT = (int) Math.ceil(100.0d / length);
     }
 
@@ -41,14 +40,9 @@ public class MainActivity extends Activity {
             this.score = 0;
         }
         this.QuestionTextView = findViewById(R.id.question_text_view);
-        this.ScoreTextView = (TextView) findViewById(R.id.score);
-        this.ProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        TextView textView = this.ScoreTextView;
-        StringBuilder sb = new StringBuilder();
-        sb.append("Score ");
-        sb.append(this.score);
-        sb.append("/13");
-        textView.setText(sb.toString());
+        this.ScoreTextView =  findViewById(R.id.score);
+        this.ProgressBar =  findViewById(R.id.progress_bar);
+        updateScore();
         this.QuestionTextView.setText(this.mQuestionBank[this.Index].getQid());
         findViewById(R.id.true_button).setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
@@ -74,10 +68,9 @@ public class MainActivity extends Activity {
             this.alert.setCancelable(false);
             this.alert.setTitle("Game Over");
             Builder builder = this.alert;
-            StringBuilder sb = new StringBuilder();
-            sb.append("You Scored : ");
-            sb.append(this.score);
-            builder.setMessage(sb.toString());
+            String s = "You Scored : ";
+            s+=score;
+            builder.setMessage(s);
             this.alert.setPositiveButton("Close App", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     MainActivity.this.finish();
@@ -90,12 +83,7 @@ public class MainActivity extends Activity {
             });
             this.alert.show();
         }
-        TextView textView = this.ScoreTextView;
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("Score ");
-        sb2.append(this.score);
-        sb2.append("/13");
-        textView.setText(sb2.toString());
+        updateScore();
         this.ProgressBar.incrementProgressBy(this.PROGRESS_BAR_INCREMENT);
         this.QuestionTextView.setText(this.mQuestionBank[this.Index].getQid());
     }
@@ -113,12 +101,7 @@ public class MainActivity extends Activity {
         if (this.lastAnswer) {
             this.score--;
         }
-        TextView textView = this.ScoreTextView;
-        StringBuilder sb = new StringBuilder();
-        sb.append("Score ");
-        sb.append(this.score);
-        sb.append("/13");
-        textView.setText(sb.toString());
+
     }
 
     public void reset(View view) {
@@ -126,12 +109,7 @@ public class MainActivity extends Activity {
         this.Index = 0;
         this.QuestionTextView.setText(this.mQuestionBank[this.Index].getQid());
         showToast("Reset");
-        TextView textView = this.ScoreTextView;
-        StringBuilder sb = new StringBuilder();
-        sb.append("Score ");
-        sb.append(this.score);
-        sb.append("/13");
-        textView.setText(sb.toString());
+        updateScore();
         ProgressBar progressBar = this.ProgressBar;
         progressBar.incrementProgressBy(-progressBar.getProgress());
     }
@@ -172,6 +150,14 @@ public class MainActivity extends Activity {
         }
         ToastMessage = Toast.makeText(getApplicationContext(),s, Toast.LENGTH_SHORT);
         ToastMessage.show();
+    }
+
+    public void updateScore()
+    {
+        TextView textView = this.ScoreTextView;
+        String s = "Score : ";
+        s+=score+"/13";
+        textView.setText(s);
     }
 
     /* access modifiers changed from: protected */
