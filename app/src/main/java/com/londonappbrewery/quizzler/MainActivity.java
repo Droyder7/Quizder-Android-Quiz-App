@@ -103,12 +103,12 @@ public class MainActivity extends Activity {
     public void undo(View view) {
         int i = this.Index;
         if (i == 0) {
-            Toast.makeText(getApplicationContext(), "Undo Not Possible", Toast.LENGTH_SHORT).show();
+            showToast("Undo Not Possible");
             return;
         }
         this.Index = (i - 1) % 13;
         this.QuestionTextView.setText(this.mQuestionBank[this.Index].getQid());
-        Toast.makeText(getApplicationContext(), "Undo", Toast.LENGTH_SHORT).show();
+        showToast("Undo");
         this.ProgressBar.incrementProgressBy(-this.PROGRESS_BAR_INCREMENT);
         if (this.lastAnswer) {
             this.score--;
@@ -125,7 +125,7 @@ public class MainActivity extends Activity {
         this.score = 0;
         this.Index = 0;
         this.QuestionTextView.setText(this.mQuestionBank[this.Index].getQid());
-        Toast.makeText(getApplicationContext(), "Reset", Toast.LENGTH_SHORT).show();
+        showToast("Reset");
         TextView textView = this.ScoreTextView;
         StringBuilder sb = new StringBuilder();
         sb.append("Score ");
@@ -139,24 +139,39 @@ public class MainActivity extends Activity {
     /* access modifiers changed from: private */
     public void checkAnswer(boolean userSelection) {
         boolean correctAnswer = this.mQuestionBank[this.Index].isAnswer();
+        if (userSelection == correctAnswer) {
+            showToast(R.string.correct_toast);
+            this.score++;
+            this.lastAnswer = true;
+        } else {
+            showToast(R.string.incorrect_toast);
+            this.lastAnswer = false;
+        }
+    }
+
+    public void skip(View view) {
+        showToast("Question Skipped");
+        updateQuestion(view);
+    }
+
+    public void showToast(String s)
+    {
         Toast toast = this.ToastMessage;
         if (toast != null) {
             toast.cancel();
         }
-        if (userSelection == correctAnswer) {
-            this.ToastMessage = Toast.makeText(getApplicationContext(), R.string.correct_toast, Toast.LENGTH_SHORT);
-            this.score++;
-            this.lastAnswer = true;
-        } else {
-            this.ToastMessage = Toast.makeText(getApplicationContext(), R.string.incorrect_toast, Toast.LENGTH_LONG);
-            this.lastAnswer = false;
-        }
-        this.ToastMessage.show();
+        ToastMessage = Toast.makeText(getApplicationContext(),s, Toast.LENGTH_SHORT);
+        ToastMessage.show();
     }
 
-    public void skip(View view) {
-        Toast.makeText(getApplicationContext(), "Question Skipped", Toast.LENGTH_SHORT).show();
-        updateQuestion(view);
+    public void showToast(int s)
+    {
+        Toast toast = this.ToastMessage;
+        if (toast != null) {
+            toast.cancel();
+        }
+        ToastMessage = Toast.makeText(getApplicationContext(),s, Toast.LENGTH_SHORT);
+        ToastMessage.show();
     }
 
     /* access modifiers changed from: protected */
