@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Quizzler</string>
+    <string name="app_name">Quizder</string>
 
     <string name="true_button">True</string>
     <string name="false_button">False</string>
@@ -25,5 +25,6 @@
     <string name="resetBtn">Reset</string>
     <string name="undoBtn">Undo</string>
     <string name="skipBtn">Skip</string>
+    <string name="credit">\@Created by Dipangshu Roy</string>
 
 </resources>

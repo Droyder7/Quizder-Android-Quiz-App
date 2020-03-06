@@ -1,4 +1,4 @@
-package com.londonappbrewery.quizzler;
+package com.droyder.quizder;
 
 import android.app.Activity;
 import android.app.AlertDialog.Builder;
@@ -6,10 +6,11 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.View.*;
+import android.widget.*;
+
+import androidx.annotation.NonNull;
+
 
 public class MainActivity extends Activity {
     int Index;
@@ -161,7 +162,9 @@ public class MainActivity extends Activity {
     }
 
     /* access modifiers changed from: protected */
-    public void onSaveInstanceState(Bundle outState) {
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+
         super.onSaveInstanceState(outState);
         outState.putInt("Score", this.score);
         outState.putInt("Index", this.Index);

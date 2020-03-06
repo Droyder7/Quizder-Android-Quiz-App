@@ -8,6 +8,16 @@
     android:orientation="vertical" >
 
     <TextView
+        android:id="@+id/creditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/credit"
+        android:textColor="@android:color/background_dark"
+        android:textIsSelectable="true"
+        android:textSize="20sp" />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/progress_bar"
@@ -53,6 +63,7 @@
             android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginRight="25dp"
             android:onClick="undo"
+            android:textColor="#FFFFFF"
             android:text="@string/undoBtn" />
 
         <Button
@@ -61,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="reset"
+            android:textColor="#FFFFFF"
             android:text="@string/resetBtn" />
 
         <Button
@@ -71,6 +83,7 @@
             android:layout_marginStart="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="25dp"
             android:onClick="skip"
+            android:textColor="#FFFFFF"
             android:text="@string/skipBtn" />
     </LinearLayout>
 
